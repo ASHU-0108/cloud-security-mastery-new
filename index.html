@@ -321,7 +321,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="resource-title">CIS AWS Benchmark</div>
     <div class="resource-desc">CIS AWS Foundations v1.4.0 — 60+ controls</div>
   </div>
-  <div class="resource-card" onclick="window.open('resources/glossary.md','_blank')">
+  <div class="resource-card" onclick="window.open('docs/glossary.html','_blank')">
     <div class="resource-icon">📖</div>
     <div class="resource-title">Glossary</div>
     <div class="resource-desc">Key terms: CSPM, CIEM, CNAPP, SOAR, and more</div>
@@ -406,8 +406,8 @@ function confirmReset(){
     const statusEl=card.querySelector('.day-status');
     if(statusEl&&card.classList.contains('available')){statusEl.className='day-status available';statusEl.textContent='→ Open';}
   });
-  document.getElementById('overall-done').textContent='0';
-  document.getElementById('overall-fill').style.width='0%';
+  document.getElementById('topnav-done').textContent='0';
+  document.getElementById('topnav-fill').style.width='0%';
 }
 // Close modal on overlay click
 document.getElementById('reset-modal').addEventListener('click',function(e){if(e.target===this)closeResetModal();});

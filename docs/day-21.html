@@ -137,39 +137,39 @@
     <div class="lesson-nav-footer"><button class="prev-btn" disabled>← Previous</button><button class="next-btn" onclick="next()">Next →</button></div>
   </div>
 
-  <!-- SECTION 2: ARCHITECTURE DIAGRAM -->
+<!-- SECTION 2: ARCHITECTURE DIAGRAM -->
   <div class="lesson-pane" id="pane-1">
     <div class="lesson-tag tag-security">Architecture</div>
     <h1>Week 3<br><em>Architecture Diagram</em></h1>
     <p>This is the end-state architecture you've built across the week. Use this as the basis for your portfolio diagram — recreate it in draw.io, Lucidchart, or as an ASCII art diagram in your README. Every layer here is something you actually built and can prove.</p>
-    <div class="arch-diagram">
-<span style="color:var(--muted);font-size:11px">┌─────────────────────────────────────────────────────────────┐</span>
-<span style="color:var(--muted);font-size:11px">│</span>  <span style="color:var(--w3)">AWS Account</span>  <span style="color:var(--muted);font-size:11px">│  Inspector (D18) · Macie (D17) · Security Hub        │</span>
-<span style="color:var(--muted);font-size:11px">├─────────────────────────────────────────────────────────────┤</span>
-<span style="color:var(--muted)">│</span>  <span style="color:#f0924a">VPC 10.0.0.0/16</span>  <span style="color:var(--muted)">── Transit Gateway (multi-VPC)              │</span>
-<span style="color:var(--muted)">│</span>                                                             <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:#f0924a">Public Subnet .1.0/24</span>  <span style="color:var(--muted)">→ IGW</span>                            <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">┌──────────────┐</span>  <span style="color:var(--muted)">NACL: deny bad IPs</span>                      <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span> <span style="color:#e4eaf6">ALB  sg-alb</span>  <span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">443 from 0.0.0.0/0</span>                      <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">└──────┬───────┘</span>                                          <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>         <span style="color:var(--muted)">│ 8080</span>                                              <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--w3)">App Subnet .2.0/24</span>  <span style="color:var(--muted)">→ NAT GW (outbound only)</span>            <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">┌──────────────────────┐</span>   <span style="color:var(--muted)">┌──────────────────┐</span>  <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span> <span style="color:#e4eaf6">ECS/Fargate sg-app</span>   <span style="color:var(--muted)">│</span>   <span style="color:var(--muted)">│</span> <span style="color:#e4eaf6">Lambda  sg-app</span>   <span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span> <span style="color:var(--muted)">non-root · RO FS</span>      <span style="color:var(--muted)">│</span>   <span style="color:var(--muted)">│</span> <span style="color:var(--muted)">least-priv role</span>  <span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span> <span style="color:var(--muted)">Task Role (IRSA)</span>      <span style="color:var(--muted)">│</span>   <span style="color:var(--muted)">│</span> <span style="color:var(--muted)">Secrets Mgr ref</span>  <span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">└──────────┬───────────┘</span>   <span style="color:var(--muted)">└────────┬─────────┘</span>  <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>             <span style="color:var(--muted)">│ 5432</span>                    <span style="color:var(--muted)">│</span>                   <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--violet)">DB Subnet .3.0/24</span>  <span style="color:var(--muted)">── NACL: allow .2.0 only ──────────</span>   <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">┌──────────────┐</span>                                          <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">│</span> <span style="color:#e4eaf6">RDS  sg-db</span>   <span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">Encrypted: KMS CMK (D16)</span>               <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--muted)">└──────────────┘</span>                                          <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>                                                             <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--w3)">S3 Buckets</span>  <span style="color:var(--muted)">SSE-KMS CMK · enforce policy · Macie scan</span>   <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--w3)">ECR</span>         <span style="color:var(--muted)">Immutable tags · Enhanced scanning (D19)</span>      <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted)">│</span>  <span style="color:var(--w3)">Secrets Mgr</span> <span style="color:var(--muted)">Runtime secret fetch · auto-rotation</span>          <span style="color:var(--muted)">│</span>
-<span style="color:var(--muted);font-size:11px">└─────────────────────────────────────────────────────────────┘</span>
-    </div>
+    <div class="arch-diagram"><pre>
+<span style="color:var(--muted)">┌─────────────────────────────────────────────────────────────┐</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--w3)">AWS Account</span><span style="color:var(--muted)">  │  Inspector (D18) · Macie (D17) · Security Hub  │</span>
+<span style="color:var(--muted)">├─────────────────────────────────────────────────────────────┤</span>
+<span style="color:var(--muted)">│  </span><span style="color:#f0924a">VPC 10.0.0.0/16</span><span style="color:var(--muted)">  ── Transit Gateway (multi-VPC)             │</span>
+<span style="color:var(--muted)">│                                                             │</span>
+<span style="color:var(--muted)">│  </span><span style="color:#f0924a">Public Subnet .1.0/24</span><span style="color:var(--muted)">  → IGW                             │</span>
+<span style="color:var(--muted)">│  ┌──────────────┐  NACL: deny bad IPs                      │</span>
+<span style="color:var(--muted)">│  │ </span><span style="color:#e4eaf6">ALB  sg-alb</span><span style="color:var(--muted)">  │  443 from 0.0.0.0/0                      │</span>
+<span style="color:var(--muted)">│  └──────┬───────┘                                          │</span>
+<span style="color:var(--muted)">│         │ 8080                                             │</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--w3)">App Subnet .2.0/24</span><span style="color:var(--muted)">  → NAT GW (outbound only)            │</span>
+<span style="color:var(--muted)">│  ┌──────────────────────┐   ┌──────────────────┐          │</span>
+<span style="color:var(--muted)">│  │ </span><span style="color:#e4eaf6">ECS/Fargate sg-app</span><span style="color:var(--muted)">   │   │ </span><span style="color:#e4eaf6">Lambda  sg-app</span><span style="color:var(--muted)">   │          │</span>
+<span style="color:var(--muted)">│  │ non-root · RO FS      │   │ least-priv role  │          │</span>
+<span style="color:var(--muted)">│  │ Task Role (IRSA)      │   │ Secrets Mgr ref  │          │</span>
+<span style="color:var(--muted)">│  └──────────┬───────────┘   └────────┬─────────┘          │</span>
+<span style="color:var(--muted)">│             │ 5432                   │                     │</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--violet)">DB Subnet .3.0/24</span><span style="color:var(--muted)">  ── NACL: allow .2.0 only ─────────────│</span>
+<span style="color:var(--muted)">│  ┌──────────────┐                                          │</span>
+<span style="color:var(--muted)">│  │ </span><span style="color:#e4eaf6">RDS  sg-db</span><span style="color:var(--muted)">   │  Encrypted: KMS CMK (D16)                │</span>
+<span style="color:var(--muted)">│  └──────────────┘                                          │</span>
+<span style="color:var(--muted)">│                                                             │</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--w3)">S3 Buckets</span><span style="color:var(--muted)">  SSE-KMS CMK · enforce policy · Macie scan   │</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--w3)">ECR</span><span style="color:var(--muted)">         Immutable tags · Enhanced scanning (D19)      │</span>
+<span style="color:var(--muted)">│  </span><span style="color:var(--w3)">Secrets Mgr</span><span style="color:var(--muted)"> Runtime secret fetch · auto-rotation          │</span>
+<span style="color:var(--muted)">└─────────────────────────────────────────────────────────────┘</span>
+</pre></div>
     <div class="callout tip">
       <div class="callout-title">✓ Portfolio Diagram Tip</div>
       For your GitHub portfolio, export this architecture as a proper diagram using <strong>draw.io</strong> (free, no account required at app.diagrams.net). Use colour-coding that matches the Week 3 teal theme. Add annotations for each control layer. Label every security boundary — reviewers and interviewers want to see that you understand why each layer exists, not just that it exists.
@@ -448,8 +448,7 @@ git log --oneline -7  <span class="comment"># verify all 7 days visible in histo
     <div class="lesson-nav-footer"><button class="prev-btn" onclick="prev()">← Previous</button><button class="next-btn lab-btn" onclick="finish()">Complete Week 3 ✓</button></div>
   </div>
 
-  <!-- WEEK COMPLETE -->
-  <div class="lesson-pane" id="pane-complete">
+<div class="lesson-pane" id="pane-complete">
     <div class="completion-card">
       <span class="completion-icon">🏆</span>
       <h1>Week 3 Complete</h1>
